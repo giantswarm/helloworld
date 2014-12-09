@@ -1,0 +1,17 @@
+{
+    "app_name": "helloworld",
+    "services": [
+        {
+            "service_name": "helloworld-service",
+            "components": [
+                {
+                    "component_name": "python",
+                    "image": "python:3",
+                    "args": ["sh", "-c", "echo \"Hello from Giant Swarm. \\o/\" > index.html && python -m http.server"],
+                    "ports": [ "8000/tcp" ],
+                    "domains": { "$domain.giantic.io": "8000" }
+                }
+            ]
+        }
+    ]
+}
