@@ -1,3 +1,9 @@
+# Hello World
+
+A minimal example application for Giant Swarm.
+
+See [The Annotaded Hello World](http://docs.giantswarm.io/guides/annotated-helloworld/) in the Giant Swarm documentation for details.
+
 ## Mac
 
 ```
