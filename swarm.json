@@ -7,8 +7,8 @@
                 {
                     "component_name": "helloworld-component",
                     "image": "giantswarm/helloworld",
-                    "ports": [8000],
-                    "domains": {"$domain": 8000}
+                    "ports": [80],
+                    "domains": {"$domain": 80}
                 }
             ]
         }
