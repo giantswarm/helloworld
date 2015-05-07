@@ -1,7 +1,6 @@
 PROJECT=helloworld
 ORGANIZATION=giantswarm
-REGISTRY = registry.giantswarm.io
-USERNAME := $(shell swarm user)
+USERNAME := giantswarm
 SOURCE := $(shell find . -name '*.go')
 GOPATH := $(shell pwd)/.gobuild
 PROJECT_PATH := $(GOPATH)/src/github.com/$(ORGANIZATION)
@@ -40,19 +39,13 @@ $(PROJECT): $(SOURCE)
 	    go build -a -o $(PROJECT)
 
 docker-build: $(PROJECT)
-	docker build -t $(REGISTRY)/$(USERNAME)/$(PROJECT) .
+	docker build -t $(USERNAME)/$(PROJECT) .
 
 docker-push: docker-build
-	docker push $(REGISTRY)/$(USERNAME)/$(PROJECT)
+	docker push $(USERNAME)/$(PROJECT)
 
 docker-pull:
-	docker pull $(REGISTRY)/$(USERNAME)/$(PROJECT)
+	docker pull $(USERNAME)/$(PROJECT)
 
 docker-run: docker-build
-	docker run -p 8080:8080 -ti --rm $(REGISTRY)/$(USERNAME)/$(PROJECT)
-
-swarm-delete:
-	swarm delete $(PROJECT)
-
-swarm-up: docker-push
-	swarm up swarm.json --var=username=$(USERNAME)
+	docker run -p 8080:8080 -ti --rm $(USERNAME)/$(PROJECT)
