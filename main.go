@@ -19,10 +19,10 @@ func main() {
 		log.Fatal(http.ListenAndServe(":8080", nil))
 	}()
 
-	// Handle SIGINT and SIGTERM.
+	// Handle SIGTERM.
 	ch := make(chan os.Signal)
-	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
-	log.Println(<-ch)
+	signal.Notify(ch, syscall.SIGTERM)
+	log.Printf("Received signal '%v'. Exiting.", <-ch)
 }
 
 var html = `
