@@ -1,3 +1,5 @@
+# Cross compiling a simple helloworld program written in Golang.
+
 PROJECT=helloworld
 ORGANIZATION=giantswarm
 USERNAME := giantswarm
@@ -7,7 +9,7 @@ PROJECT_PATH := $(GOPATH)/src/github.com/$(ORGANIZATION)
 GOOS := linux
 GOARCH := amd64
 
-.PHONY=all clean deps $(PROJECT) swarm-up docker-build docker-push docker-pull
+.PHONY=all clean deps $(PROJECT) docker-build
 
 all: deps $(PROJECT)
 
@@ -40,12 +42,6 @@ $(PROJECT): $(SOURCE)
 
 docker-build: $(PROJECT)
 	docker build -t $(USERNAME)/$(PROJECT) .
-
-docker-push: docker-build
-	docker push $(USERNAME)/$(PROJECT)
-
-docker-pull:
-	docker pull $(USERNAME)/$(PROJECT)
 
 docker-run: docker-build
 	docker run -p 8080:8080 -ti --rm $(USERNAME)/$(PROJECT)

@@ -28,3 +28,9 @@ $ ./swarm login
 ```
 $ ./swarm up --var=domain=helloworld-$USER.gigantic.io
 ```
+
+## Building
+
+Note: This project builds a simple helloworld image written in Go. The files in here are not directly intented for direct usage of Giant Swarm. For a suitable getting started example see http://docs.giantswarm.io/guides/your-first-application/ That said: Go around have a look. ;-)
+
+This project is setup with an automatic build in the Docker hub: https://registry.hub.docker.com/u/giantswarm/helloworld/. To trigger an automatic build push the changes into https://github.com/giantswarm/helloworld.
