@@ -37,7 +37,7 @@ $(PROJECT): $(SOURCE)
 	    -e GOOS=$(GOOS) \
 	    -e GOARCH=$(GOARCH) \
 	    -w /usr/code \
-	    golang:1.3.1-cross \
+	    golang:1.4-cross \
 	    go build -a -o $(PROJECT)
 
 docker-build: $(PROJECT)
