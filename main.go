@@ -28,13 +28,16 @@ func main() {
 var html = `
 <!DOCTYPE html>
 <html lang="en">
+<style>
+* {
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+</style>
 <body>
-
+<img src="https://giantswarm.io/static/img/logo_simplified.svg" width="200" alt="Giant Swarm">
 <h1>Hello world!</h1>
-
-<p>Congratulations you've just deployed and run your first Giant Swarm container!</p> 
-<p>Now go ahead and build your own Giant Swarm app with your own <a href="http://docs.giantswarm.io/guides/your-first-application/">favourite language!</a></p>.
-
+<p>Congratulations you've just deployed and run your first Giant Swarm container! While you are at it, why don't you let the <a href="http://www.twitter.com/share?text=I've just deployed my first container on @giantswarm:"/>world know</a>?</p>
+<p>Now go ahead and build your own Giant Swarm app in your own <a href="http://docs.giantswarm.io/guides/your-first-application/">favourite language</a>!</p>
 </body>
 </html>
 `
