@@ -6,10 +6,9 @@
             "components": [
                 {
                     "component_name": "helloworld-component",
-                    "image": "python:3",
-                    "args": ["sh", "-c", "echo \"Hello from Giant Swarm. \\o/\" > index.html && python -u -m http.server"],
-                    "ports": [8000],
-                    "domains": {"$domain": 8000}
+                    "image": "giantswarm/helloworld",
+                    "ports": [8080],
+                    "domains": {"$domain": 8080}
                 }
             ]
         }
