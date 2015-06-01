@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hello World</title>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script>
+  $("document").ready(function(){
+    $(".outerbox").css({"height": ($(window).height() - 20) + "px"});
+  });
+  </script>
+  <link rel="icon" type="image/x-icon" href="https://giantswarm.io/static/img/favicon32.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="https://giantswarm.io/static/img/favicon32.ico">
+  <link href='//fonts.googleapis.com/css?Roboto:300|Inconsolata:400' rel='stylesheet' type='text/css'>
+  <style>
+  * {
+  	font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url(/blue-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+  }
+  .box {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h1 {
+    font-size: 38px;
+    font-family: Inconsolata, Menlo, monospace;
+  }
+  h1, p {
+    text-align: center
+  }
+  a {
+    color: #fff;
+  }
+  </style>
+</head>
+<body>
+  <div class="outerbox">
+    <div class="box">
+      
+      <p><a href="https://giantswarm.io/"><img src="/giantswarm_logo_standard_white.svg" width="100" height="50" /></a></p>
+
+      <h1>Hello World!</h1>
+      
+      <p>Congratulations &ndash; you've just deployed and started your first Giant Swarm application!</p>
+
+      <p>Now go ahead and build your own Giant Swarm app in your own <a href="http://docs.giantswarm.io/guides/your-first-application/">favourite language</a>.</p>
+
+      <p>Or share your pride and let the world know by <a href="http://www.twitter.com/share?text=I've just deployed my first container on @giantswarm:"/>tweeting this</a>!</p>
+
+    </div>
+  </div>
+</body>
+</html>
