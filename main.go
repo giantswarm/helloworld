@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	mime.AddExtensionType(".ico", "image/x-icon")
 	mime.AddExtensionType(".svg", "image/svg+xml")
 
 	fileHandler := http.FileServer(http.Dir("/content"))
