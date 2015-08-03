@@ -1,16 +1,12 @@
 {
-    "app_name": "helloworld",
-    "services": [
-        {
-            "service_name": "helloworld-service",
-            "components": [
-                {
-                    "component_name": "helloworld-component",
-                    "image": "giantswarm/helloworld",
-                    "ports": [8080],
-                    "domains": {"$domain": 8080}
-                }
-            ]
-        }
-    ]
+  "name": "helloworld",
+  "nodes": {
+    "helloworld": {
+      "image": "giantswarm/helloworld",
+      "ports": [8080],
+      "domains": {
+        "$domain": "8080"
+      }
+    }
+  }
 }
