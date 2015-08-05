@@ -1,6 +1,6 @@
 {
   "name": "helloworld",
-  "nodes": {
+  "components": {
     "helloworld": {
       "image": "giantswarm/helloworld",
       "ports": [8080],
