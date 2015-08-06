@@ -1,7 +1,7 @@
 {
   "name": "helloworld",
   "components": {
-    "helloworld": {
+    "webserver": {
       "image": "giantswarm/helloworld",
       "ports": [8080],
       "domains": {
