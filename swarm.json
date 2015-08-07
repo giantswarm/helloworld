@@ -5,7 +5,7 @@
       "image": "giantswarm/helloworld",
       "ports": [8080],
       "domains": {
-        "$domain": "8080"
+        "8080": "$domain"
       }
     }
   }
