@@ -27,18 +27,18 @@ deps: .gobuild
 	# Fetch public packages
 	GOPATH=$(GOPATH) go get -d github.com/$(ORGANIZATION)/$(PROJECT)
 
-$(PROJECT): $(SOURCE) 
+$(PROJECT): $(SOURCE)
 	echo Building for $(GOOS)/$(GOARCH)
 	docker run \
-	    --rm \
-	    -it \
-	    -v $(shell pwd):/usr/code \
-	    -e GOPATH=/usr/code/.gobuild \
-	    -e GOOS=$(GOOS) \
-	    -e GOARCH=$(GOARCH) \
-	    -w /usr/code \
-	    golang:1.4-cross \
-	    go build -a -o $(PROJECT)
+		--rm \
+		-it \
+		-v $(shell pwd):/usr/code \
+		-e GOPATH=/usr/code/.gobuild \
+		-e GOOS=$(GOOS) \
+		-e GOARCH=$(GOARCH) \
+		-w /usr/code \
+		golang:1.4-cross \
+		go build -a -o $(PROJECT)
 
 docker-build: $(PROJECT)
 	docker build -t $(USERNAME)/$(PROJECT) .
