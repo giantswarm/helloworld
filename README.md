@@ -16,7 +16,7 @@ $ swarm login
 (Enter your Giant Swarm credentials)
 
 ```
-$ swarm up --var=domain=helloworld-$USER.gigantic.io
+$ swarm up
 ```
 
 ## Linux
@@ -31,7 +31,7 @@ $ swarm login
 (Enter your Giant Swarm credentials)
 
 ```
-$ ./swarm up --var=domain=helloworld-$USER.gigantic.io
+$ ./swarm up
 ```
 
 ## Building
