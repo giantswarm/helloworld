@@ -45,4 +45,4 @@ metadata:
 spec:
   backend:
     serviceName: helloworld
-    service
+    servicePort: 8080
