@@ -5,7 +5,7 @@
       "image": "giantswarm/helloworld",
       "ports": [8080],
       "domains": {
-        "8080": "$domain"
+        "8080": "helloworld-$GIANTSWARM_LOGIN_NAME.gigantic.io"
       }
     }
   }
