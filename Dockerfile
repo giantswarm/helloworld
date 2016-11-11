@@ -1,4 +1,4 @@
-FROM busybox:ubuntu-14.04
+FROM alpine:3.4
 
 ADD ./helloworld /usr/bin/
 ADD content /content
