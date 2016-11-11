@@ -36,9 +36,10 @@ $(PROJECT): $(SOURCE)
 		-e GOPATH=/usr/code/.gobuild \
 		-e GOOS=$(GOOS) \
 		-e GOARCH=$(GOARCH) \
+		-e CGO_ENABLED=0 \
 		-w /usr/code \
-		golang:1.4-cross \
-		go build -a -o $(PROJECT)
+		golang:1.7.3 \
+		go build -a -installsuffix cgo -o $(PROJECT)
 
 docker-build: $(PROJECT)
 	docker build -t $(USERNAME)/$(PROJECT) .
