@@ -43,6 +43,11 @@ metadata:
   name: helloworld
   namespace: default
 spec:
-  backend:
-    serviceName: helloworld
-    servicePort: 8080
+  rules:
+  - host: helloworld.clusterid.gigantic.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: helloworld
+          servicePort: 8080
