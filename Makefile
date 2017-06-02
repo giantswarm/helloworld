@@ -25,7 +25,7 @@ $(PROJECT): $(SOURCE)
 		-e GOARCH=$(GOARCH) \
 		-e CGO_ENABLED=0 \
 		-w /usr/code \
-		golang:1.7.3 \
+		golang:1.8.3 \
 		go build -a -installsuffix cgo -o $(PROJECT)
 
 docker-build: $(PROJECT)
