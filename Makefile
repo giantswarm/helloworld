@@ -27,3 +27,9 @@ $(PROJECT): $(SOURCE)
 		-w /usr/code \
 		golang:1.7.3 \
 		go build -a -installsuffix cgo -o $(PROJECT)
+
+docker-build: $(PROJECT)
+	docker build -t $(USERNAME)/$(PROJECT) .
+
+docker-run: docker-build
+	docker run -p 8080:8080 -ti --rm $(USERNAME)/$(PROJECT)
