@@ -44,7 +44,9 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: helloworld.clusterid.gigantic.io
+  # Change the host to match your cluster base domain.
+  # See https://docs.giantswarm.io/guides/accessing-services-from-the-outside/ for details.
+  - host: helloworld.YOUR_CLUSTER_BASE_DOMAIN
     http:
       paths:
       - path: /
