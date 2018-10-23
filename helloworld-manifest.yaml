@@ -40,6 +40,7 @@ kind: Ingress
 metadata:
   labels:
     app: helloworld 
+    kubernetes.io/ingress.class: nginx.ingress.kubernetes.io
   name: helloworld
   namespace: default
 spec:
