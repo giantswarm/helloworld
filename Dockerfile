@@ -1,4 +1,4 @@
-FROM golang:1.10-alpine3.8 AS build
+FROM golang:1.11-alpine3.9 AS build
 
 WORKDIR /build
 
@@ -8,7 +8,7 @@ RUN go build -o helloworld
 
 # ---------
 
-FROM alpine:3.8
+FROM alpine:3.9
 
 WORKDIR /
 
