@@ -6,4 +6,4 @@
 
 A minimal web application to test your Giant Swarm setup.
 
-To learn more about Giant Swarm, visit https://giantswarm.io/.
+To learn more about Giant Swarm, visit https://www.giantswarm.io/.
