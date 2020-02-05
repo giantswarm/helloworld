@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"mime"
 	"net/http"
@@ -15,6 +16,7 @@ func main() {
 
 	fileHandler := http.FileServer(http.Dir("/content"))
 	http.Handle("/", loggingHandler(fileHandler))
+	http.HandleFunc("/healthz", healthzHandler)
 
 	go func() {
 		log.Println("Starting up at :8080")
@@ -33,4 +35,10 @@ func loggingHandler(h http.Handler) http.Handler {
 		log.Println(r.Method, r.URL.Path)
 		h.ServeHTTP(w, r)
 	})
+}
+
+// Healthz endpoint
+func healthzHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	io.WriteString(w, "OK\n")
 }
