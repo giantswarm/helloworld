@@ -1,15 +1,32 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"mime"
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 )
 
+var gitCommit = "n/a"
+
 func main() {
+	for _, v := range os.Args {
+		param := strings.ToLower(v)
+		switch {
+		case param == "version":
+			fmt.Printf("helloworld version: %s\n", gitCommit)
+			os.Exit(0)
+		case param == "--help":
+			fmt.Printf("usage: %s\n", os.Args[0])
+			os.Exit(0)
+		}
+
+	}
+
 	mime.AddExtensionType(".ico", "image/x-icon")
 	mime.AddExtensionType(".svg", "image/svg+xml")
 
