@@ -58,6 +58,13 @@ spec:
             port: 8080
           initialDelaySeconds: 3
           periodSeconds: 3
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 50m
+            memory: 50Mi
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
