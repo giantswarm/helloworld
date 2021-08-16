@@ -1,13 +1,19 @@
-FROM alpine:3.10
+FROM quay.io/giantswarm/golang:1.16.7-alpine3.14 AS builder
 
-WORKDIR /
+WORKDIR /project
 
-RUN apk add --no-cache ca-certificates
+COPY main.go /project/
+COPY go.mod /project/
 
-ADD ./helloworld /helloworld
+RUN go build .
+
+FROM quay.io/giantswarm/alpine:3.14.1
 
 # Add our static content
 ADD content /content
+
+# Add our binary
+COPY --from=builder /project/helloworld /helloworld
 
 EXPOSE 8080
 
