@@ -63,5 +63,8 @@ func loggingHandler(h http.Handler) http.Handler {
 // Healthz endpoint
 func healthzHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	io.WriteString(w, "OK\n")
+	_, err := io.WriteString(w, "OK\n")
+	if err != nil {
+		log.Printf("Error in io.WriteString: %s", err)
+	}
 }
