@@ -1,6 +1,5 @@
-[![](https://godoc.org/github.com/giantswarm/helloworld?status.svg)](http://godoc.org/github.com/giantswarm/helloworld)
-[![](https://img.shields.io/docker/pulls/giantswarm/helloworld.svg)](https://hub.docker.com/r/giantswarm/helloworld/)
-[![Go Report Card](https://goreportcard.com/badge/github.com/giantswarm/helloworld)](https://goreportcard.com/report/github.com/giantswarm/helloworld)
+[![](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white&style=for-the-badge)](https://pkg.go.dev/github.com/giantswarm/helloworld)
+[![Go Report Card](https://goreportcard.com/badge/github.com/giantswarm/helloworld?style=for-the-badge)](https://goreportcard.com/report/github.com/giantswarm/helloworld)
 
 # Hello World
 
