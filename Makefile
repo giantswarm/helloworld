@@ -3,10 +3,10 @@
 .PHONY=build
 
 build:
-	docker build -t giantswarm/helloworld:latest .
+	docker build -t quay.io/giantswarm/helloworld:latest .
 
 run: build
-	docker run -p 8080:8080 -ti --rm giantswarm/helloworld:latest
+	docker run -p 8080:8080 -ti --rm quay.io/giantswarm/helloworld:latest
 
 clean:
-	docker rmi giantswarm/helloworld:latest
+	docker rmi quay.io/giantswarm/helloworld:latest
