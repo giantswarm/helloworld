@@ -47,7 +47,7 @@ func main() {
 	}()
 
 	// Handle SIGTERM.
-	ch := make(chan os.Signal)
+	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, syscall.SIGTERM)
 	log.Printf("Received signal '%v'. Exiting.", <-ch)
 }
