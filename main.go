@@ -28,8 +28,14 @@ func main() {
 
 	}
 
-	mime.AddExtensionType(".ico", "image/x-icon")
+	err := mime.AddExtensionType(".ico", "image/x-icon")
+	if err != nil {
+		log.Printf("Error when adding mime type for .ico: %s", err)
+	}
 	mime.AddExtensionType(".svg", "image/svg+xml")
+	if err != nil {
+		log.Printf("Error when adding mime type for .svg: %s", err)
+	}
 
 	fileHandler := http.FileServer(http.Dir("/content"))
 	http.Handle("/", loggingHandler(fileHandler))
