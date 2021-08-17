@@ -32,7 +32,7 @@ func main() {
 	if err != nil {
 		log.Printf("Error when adding mime type for .ico: %s", err)
 	}
-	mime.AddExtensionType(".svg", "image/svg+xml")
+	err = mime.AddExtensionType(".svg", "image/svg+xml")
 	if err != nil {
 		log.Printf("Error when adding mime type for .svg: %s", err)
 	}
