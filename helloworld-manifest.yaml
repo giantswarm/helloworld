@@ -85,6 +85,7 @@ metadata:
   name: helloworld
   namespace: default
 spec:
+  ingressClassName: nginx
   rules:
   # Change the host to match your cluster base domain.
   # See https://docs.giantswarm.io/guides/accessing-services-from-the-outside/ for details.
