@@ -66,7 +66,7 @@ spec:
             cpu: 50m
             memory: 50Mi
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: helloworld-pdb
@@ -76,7 +76,7 @@ spec:
     matchLabels:
       app: helloworld
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   labels:
@@ -93,6 +93,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: helloworld
-          servicePort: 8080
+          service:
+            name: helloworld
+            port:
+              number: 8080
