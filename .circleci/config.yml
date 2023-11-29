@@ -6,7 +6,7 @@ workflows:
   all:
     jobs:
       - architect/go-build:
-          name: go-build-helloworld
+          name: go-build
           binary: helloworld
           filters:
             # Trigger job also on git tag.
@@ -17,18 +17,8 @@ workflows:
           context: architect
           name: push-to-registries
           requires:
-            - go-build-helloworld
-            - hold-push-helloworld-to-aliyun-pr
+            - go-build
+          
           filters:
             tags:
               only: /^v.*/
-
-      - hold-push-helloworld-to-aliyun-pr:
-          type: approval
-          requires:
-            - go-build-helloworld
-          # Needed to prevent job from being triggered on master branch.
-          filters:
-            branches:
-              ignore: master
-
