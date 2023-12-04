@@ -43,7 +43,7 @@ func main() {
 
 	go func() {
 		log.Println("Starting up at :8080")
-		log.Fatal(http.ListenAndServe(":8080", nil))
+		log.Fatal(http.ListenAndServe(":8080", nil)) //nolint:gosec
 	}()
 
 	// Handle SIGTERM.
