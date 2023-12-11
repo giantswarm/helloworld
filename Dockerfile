@@ -1,4 +1,4 @@
-FROM quay.io/giantswarm/golang:1.19-alpine3.19 AS builder
+FROM quay.io/giantswarm/golang:1.21.5-alpine3.18 AS builder
 
 WORKDIR /project
 
@@ -7,7 +7,7 @@ COPY go.mod /project/
 
 RUN go build .
 
-FROM quay.io/giantswarm/alpine:3.19
+FROM quay.io/giantswarm/alpine:3.18.5
 
 # Add our static content
 ADD content /content
