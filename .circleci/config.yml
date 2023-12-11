@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.35.5
+  architect: giantswarm/architect@4.35.6
 
 workflows:
   all:
@@ -18,7 +18,6 @@ workflows:
           name: push-to-registries
           requires:
             - go-build
-          
           filters:
             tags:
               only: /^v.*/
