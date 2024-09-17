@@ -58,6 +58,15 @@ spec:
             port: 8080
           initialDelaySeconds: 3
           periodSeconds: 3
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+              - ALL
         resources:
           requests:
             cpu: 50m
@@ -66,7 +75,7 @@ spec:
             cpu: 50m
             memory: 50Mi
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: helloworld-pdb
