@@ -1,16 +1,15 @@
-orbs:
-  architect: giantswarm/architect@5.8.0
-
 version: 2.1
+orbs:
+  architect: giantswarm/architect@4.35.6
 
 workflows:
-  build:
+  all:
     jobs:
       - architect/go-build:
-          context: architect
           name: go-build
           binary: helloworld
           filters:
+            # Trigger job also on git tag.
             tags:
               only: /^v.*/
 

@@ -43,7 +43,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: helloworld
-        image: quay.io/giantswarm/helloworld:latest
+        image: gsoci.azurecr.io/giantswarm/helloworld:latest
         ports:
         - containerPort: 8080
         livenessProbe:

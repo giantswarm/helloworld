@@ -28,8 +28,14 @@ func main() {
 
 	}
 
-	mime.AddExtensionType(".ico", "image/x-icon")
-	mime.AddExtensionType(".svg", "image/svg+xml")
+	err := mime.AddExtensionType(".ico", "image/x-icon")
+	if err != nil {
+		log.Printf("Error when adding mime type for .ico: %s", err)
+	}
+	err = mime.AddExtensionType(".svg", "image/svg+xml")
+	if err != nil {
+		log.Printf("Error when adding mime type for .svg: %s", err)
+	}
 
 	fileHandler := http.FileServer(http.Dir("/content"))
 	http.Handle("/", loggingHandler(fileHandler))
@@ -37,11 +43,11 @@ func main() {
 
 	go func() {
 		log.Println("Starting up at :8080")
-		log.Fatal(http.ListenAndServe(":8080", nil))
+		log.Fatal(http.ListenAndServe(":8080", nil)) //nolint:gosec
 	}()
 
 	// Handle SIGTERM.
-	ch := make(chan os.Signal)
+	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, syscall.SIGTERM)
 	log.Printf("Received signal '%v'. Exiting.", <-ch)
 }
@@ -57,5 +63,8 @@ func loggingHandler(h http.Handler) http.Handler {
 // Healthz endpoint
 func healthzHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	io.WriteString(w, "OK\n")
+	_, err := io.WriteString(w, "OK\n")
+	if err != nil {
+		log.Printf("Error in io.WriteString: %s", err)
+	}
 }
