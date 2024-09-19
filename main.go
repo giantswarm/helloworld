@@ -10,6 +10,8 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var gitCommit = "n/a"
@@ -39,6 +41,7 @@ func main() {
 
 	fileHandler := http.FileServer(http.Dir("/content"))
 	http.Handle("/", loggingHandler(fileHandler))
+	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/healthz", healthzHandler)
 
 	go func() {
