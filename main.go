@@ -23,7 +23,7 @@ var (
 			Name: "http_requests_total",
 			Help: "Total number of HTTP requests",
 		},
-		[]string{"path"},
+		[]string{"code"},
 	)
 )
 
@@ -70,10 +70,10 @@ func main() {
 
 // HTTP Handler that adds logging to STDOUT
 func loggingHandler(h http.Handler) http.Handler {
-	httpRequestsTotal.With(prometheus.Labels{"path": "/"}).Inc()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Method, r.URL.Path)
 		h.ServeHTTP(w, r)
+		httpRequestsTotal.With(prometheus.Labels{"code": w.Header().Get("Code")}).Inc()
 	})
 }
 
