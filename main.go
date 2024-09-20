@@ -12,13 +12,14 @@ import (
 	"syscall"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var gitCommit = "n/a"
 
 var (
-	httpRequestsTotal = prometheus.NewCounterVec(
+	httpRequestsTotal = promauto.NewCounterVec(
 		prometheus.CounterOpts{
 			Name: "http_requests_total",
 			Help: "Total number of HTTP requests",
@@ -49,8 +50,6 @@ func main() {
 	if err != nil {
 		log.Printf("Error when adding mime type for .svg: %s", err)
 	}
-
-	prometheus.MustRegister(httpRequestsTotal)
 
 	fileHandler := http.FileServer(http.Dir("/content"))
 	http.Handle("/", loggingHandler(fileHandler))
