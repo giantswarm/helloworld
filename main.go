@@ -10,9 +10,23 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var gitCommit = "n/a"
+
+var (
+	httpRequestsTotal = promauto.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "http_requests_total",
+			Help: "Total number of HTTP requests",
+		},
+		[]string{"code"},
+	)
+)
 
 func main() {
 	for _, v := range os.Args {
@@ -39,6 +53,7 @@ func main() {
 
 	fileHandler := http.FileServer(http.Dir("/content"))
 	http.Handle("/", loggingHandler(fileHandler))
+	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/healthz", healthzHandler)
 
 	go func() {
@@ -57,6 +72,7 @@ func loggingHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Method, r.URL.Path)
 		h.ServeHTTP(w, r)
+		httpRequestsTotal.With(prometheus.Labels{"code": w.Header().Get("Code")}).Inc()
 	})
 }
 

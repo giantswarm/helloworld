@@ -4,6 +4,7 @@ WORKDIR /project
 
 COPY main.go /project/
 COPY go.mod /project/
+COPY go.sum /project/
 
 RUN go build .
 
