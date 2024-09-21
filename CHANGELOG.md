@@ -7,6 +7,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-09-21
+
 Initial release
 
-[Unreleased]: https://github.com/giantswarm/hello-world-app/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/helloworld/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/giantswarm/helloworld/compare/v0.2.0...v0.3.0
