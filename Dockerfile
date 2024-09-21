@@ -1,4 +1,4 @@
-FROM quay.io/giantswarm/golang:1.21.5-alpine3.18 AS builder
+FROM quay.io/giantswarm/golang:1.21.6-alpine3.18 AS builder
 
 WORKDIR /project
 
