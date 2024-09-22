@@ -8,7 +8,7 @@ COPY go.sum /project/
 
 RUN go build .
 
-FROM quay.io/giantswarm/alpine:3.18.5
+FROM quay.io/giantswarm/alpine:3.20.3
 
 # Add our static content
 ADD content /content
