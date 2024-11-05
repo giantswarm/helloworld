@@ -2,7 +2,7 @@ module github.com/giantswarm/helloworld
 
 go 1.21.3
 
-require github.com/prometheus/client_golang v1.20.4
+require github.com/prometheus/client_golang v1.20.5
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
