@@ -1,4 +1,4 @@
-FROM quay.io/giantswarm/golang:1.21.6-alpine3.18 AS builder
+FROM gsoci.azurecr.io/giantswarm/golang:1.24.2-alpine3.21 AS builder
 
 WORKDIR /project
 
@@ -8,7 +8,7 @@ COPY go.sum /project/
 
 RUN go build .
 
-FROM quay.io/giantswarm/alpine:3.21.3
+FROM gsoci.azurecr.io/giantswarm/alpine:3.21.3
 
 # Add our static content
 ADD content /content
