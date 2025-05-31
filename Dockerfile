@@ -8,7 +8,7 @@ COPY go.sum /project/
 
 RUN go build .
 
-FROM gsoci.azurecr.io/giantswarm/alpine:3.21.3
+FROM gsoci.azurecr.io/giantswarm/alpine:3.22.0
 
 # Add our static content
 ADD content /content
