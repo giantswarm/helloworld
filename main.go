@@ -42,6 +42,13 @@ func main() {
 
 	}
 
+	// Read SECRET_KEY environment variable and fail if not set
+	secretKey := os.Getenv("SECRET_KEY")
+	if secretKey == "" {
+		log.Fatal("SECRET_KEY environment variable is required but not set")
+	}
+	log.Printf("SECRET_KEY loaded successfully")
+
 	err := mime.AddExtensionType(".ico", "image/x-icon")
 	if err != nil {
 		log.Printf("Error when adding mime type for .ico: %s", err)
