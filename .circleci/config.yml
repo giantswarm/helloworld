@@ -1,23 +1,27 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.35.6
+  architect: giantswarm/architect@6.2.1
 
 workflows:
   all:
     jobs:
-      - architect/go-build:
-          name: go-build
-          binary: helloworld
-          filters:
+    - architect/go-build:
+        name: go-build
+        binary: helloworld
+        filters:
             # Trigger job also on git tag.
-            tags:
-              only: /^v.*/
+          tags:
+            only: /^v.*/
 
-      - architect/push-to-registries:
-          context: architect
-          name: push-to-registries
-          requires:
-            - go-build
-          filters:
-            tags:
-              only: /^v.*/
+    - architect/push-to-registries:
+        context: architect
+        name: push-to-registries
+        requires:
+        - go-build
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+            - master

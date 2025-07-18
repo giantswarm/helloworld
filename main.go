@@ -31,11 +31,11 @@ var (
 func main() {
 	for _, v := range os.Args {
 		param := strings.ToLower(v)
-		switch {
-		case param == "version":
+		switch param {
+		case "version":
 			fmt.Printf("helloworld version: %s\n", gitCommit)
 			os.Exit(0)
-		case param == "--help":
+		case "--help":
 			fmt.Printf("usage: %s\n", os.Args[0])
 			os.Exit(0)
 		}
