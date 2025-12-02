@@ -2,7 +2,7 @@ module github.com/giantswarm/helloworld
 
 go 1.23.0
 
-toolchain go1.25.4
+toolchain go1.25.5
 
 require github.com/prometheus/client_golang v1.23.2
 
