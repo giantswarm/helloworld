@@ -1,4 +1,4 @@
-FROM gsoci.azurecr.io/giantswarm/golang:1.25.4-alpine3.21 AS builder
+FROM gsoci.azurecr.io/giantswarm/golang:1.25.5-alpine3.21 AS builder
 
 WORKDIR /project
 
