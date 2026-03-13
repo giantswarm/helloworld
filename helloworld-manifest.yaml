@@ -69,10 +69,10 @@ spec:
           periodSeconds: 3
         readinessProbe:
           httpGet:
-            path: /healthz
+            path: /readyz
             port: 8080
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
         securityContext:
           runAsNonRoot: true
           runAsUser: 1000

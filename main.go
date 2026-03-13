@@ -9,7 +9,9 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"sync/atomic"
 	"syscall"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -17,6 +19,10 @@ import (
 )
 
 var gitCommit = "n/a"
+
+// heartbeatOK tracks whether the last cronitor heartbeat ping succeeded.
+// The app is considered not ready if this is false.
+var heartbeatOK atomic.Bool
 
 var (
 	httpRequestsTotal = promauto.NewCounterVec(
@@ -63,6 +69,15 @@ func main() {
 	http.Handle("/", loggingHandler(fileHandler))
 	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/healthz", healthzHandler)
+	http.HandleFunc("/readyz", readyzHandler)
+
+	// Start heartbeat pinger in background.
+	heartbeatURL := os.Getenv("HEARTBEAT_URL")
+	if heartbeatURL == "" {
+		slog.Error("HEARTBEAT_URL environment variable is required but not set")
+		os.Exit(1)
+	}
+	go pingHeartbeat(heartbeatURL)
 
 	go func() {
 		slog.Info("Starting up at :8080")
@@ -87,11 +102,52 @@ func loggingHandler(h http.Handler) http.Handler {
 	})
 }
 
-// Healthz endpoint
+// Healthz endpoint (liveness)
 func healthzHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, err := io.WriteString(w, "OK\n")
 	if err != nil {
 		slog.Error("Error in io.WriteString", "error", err)
+	}
+}
+
+// Readyz endpoint (readiness) — fails when the heartbeat ping is unhealthy.
+func readyzHandler(w http.ResponseWriter, r *http.Request) {
+	if !heartbeatOK.Load() {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		_, _ = io.WriteString(w, "heartbeat unhealthy\n")
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	_, _ = io.WriteString(w, "OK\n")
+}
+
+// pingHeartbeat pings the heartbeat URL every minute and updates heartbeatOK.
+func pingHeartbeat(url string) {
+	client := &http.Client{Timeout: 10 * time.Second}
+
+	ping := func() {
+		resp, err := client.Get(url) //nolint:gosec
+		if err != nil {
+			slog.Error("Heartbeat ping failed", "error", err)
+			heartbeatOK.Store(false)
+			return
+		}
+		resp.Body.Close()
+		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+			heartbeatOK.Store(true)
+		} else {
+			slog.Error("Heartbeat ping returned unexpected status", "status", resp.StatusCode)
+			heartbeatOK.Store(false)
+		}
+	}
+
+	// Ping immediately on startup.
+	ping()
+
+	ticker := time.NewTicker(1 * time.Minute)
+	defer ticker.Stop()
+	for range ticker.C {
+		ping()
 	}
 }
