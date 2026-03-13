@@ -74,7 +74,8 @@ func main() {
 	// Start heartbeat pinger in background.
 	heartbeatURL := os.Getenv("HEARTBEAT_URL")
 	if heartbeatURL == "" {
-		log.Fatal("HEARTBEAT_URL environment variable is required but not set")
+		slog.Error("HEARTBEAT_URL environment variable is required but not set")
+		os.Exit(1)
 	}
 	go pingHeartbeat(heartbeatURL)
 
@@ -128,7 +129,7 @@ func pingHeartbeat(url string) {
 	ping := func() {
 		resp, err := client.Get(url) //nolint:gosec
 		if err != nil {
-			log.Printf("Heartbeat ping failed: %s", err)
+			slog.Error("Heartbeat ping failed", "error", err)
 			heartbeatOK.Store(false)
 			return
 		}
@@ -136,7 +137,7 @@ func pingHeartbeat(url string) {
 		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
 			heartbeatOK.Store(true)
 		} else {
-			log.Printf("Heartbeat ping returned status %d", resp.StatusCode)
+			slog.Error("Heartbeat ping returned unexpected status", "status", resp.StatusCode)
 			heartbeatOK.Store(false)
 		}
 	}
