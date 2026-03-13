@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"mime"
 	"net/http"
 	"os"
@@ -45,17 +45,18 @@ func main() {
 	// Read SECRET_KEY environment variable and fail if not set
 	secretKey := os.Getenv("SECRET_KEY")
 	if secretKey == "" {
-		log.Fatal("SECRET_KEY environment variable is required but not set")
+		slog.Error("SECRET_KEY environment variable is required but not set")
+		os.Exit(1)
 	}
-	log.Printf("SECRET_KEY loaded successfully")
+	slog.Info("SECRET_KEY loaded successfully")
 
 	err := mime.AddExtensionType(".ico", "image/x-icon")
 	if err != nil {
-		log.Printf("Error when adding mime type for .ico: %s", err)
+		slog.Error("Error when adding mime type for .ico", "error", err)
 	}
 	err = mime.AddExtensionType(".svg", "image/svg+xml")
 	if err != nil {
-		log.Printf("Error when adding mime type for .svg: %s", err)
+		slog.Error("Error when adding mime type for .svg", "error", err)
 	}
 
 	fileHandler := http.FileServer(http.Dir("/content"))
@@ -64,20 +65,23 @@ func main() {
 	http.HandleFunc("/healthz", healthzHandler)
 
 	go func() {
-		log.Println("Starting up at :8080")
-		log.Fatal(http.ListenAndServe(":8080", nil)) //nolint:gosec
+		slog.Info("Starting up at :8080")
+		if err := http.ListenAndServe(":8080", nil); err != nil { //nolint:gosec
+			slog.Error("HTTP server failed", "error", err)
+			os.Exit(1)
+		}
 	}()
 
 	// Handle SIGTERM.
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, syscall.SIGTERM)
-	log.Printf("Received signal '%v'. Exiting.", <-ch)
+	slog.Info("Received signal, exiting", "signal", <-ch)
 }
 
 // HTTP Handler that adds logging to STDOUT
 func loggingHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.Method, r.URL.Path)
+		slog.Info("HTTP request", "method", r.Method, "path", r.URL.Path)
 		h.ServeHTTP(w, r)
 		httpRequestsTotal.With(prometheus.Labels{"code": w.Header().Get("Code")}).Inc()
 	})
@@ -88,6 +92,6 @@ func healthzHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, err := io.WriteString(w, "OK\n")
 	if err != nil {
-		log.Printf("Error in io.WriteString: %s", err)
+		slog.Error("Error in io.WriteString", "error", err)
 	}
 }
