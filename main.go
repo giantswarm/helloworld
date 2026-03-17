@@ -45,16 +45,7 @@ func main() {
 			fmt.Printf("usage: %s\n", os.Args[0])
 			os.Exit(0)
 		}
-
 	}
-
-	// Read SECRET_KEY environment variable and fail if not set
-	secretKey := os.Getenv("SECRET_KEY")
-	if secretKey == "" {
-		slog.Error("SECRET_KEY environment variable is required but not set")
-		os.Exit(1)
-	}
-	slog.Info("SECRET_KEY loaded successfully")
 
 	err := mime.AddExtensionType(".ico", "image/x-icon")
 	if err != nil {
