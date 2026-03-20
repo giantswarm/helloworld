@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Remove secret key environment variable requirement
+
 ## [0.4.0] - 2025-07-18
 
 - Add secret key environment variable

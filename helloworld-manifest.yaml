@@ -1,13 +1,4 @@
 apiVersion: v1
-kind: Secret
-metadata:
-  name: helloworld-secret
-  namespace: default
-type: Opaque
-data:
-  secret-key: IjEyMzQ1Njc4OTAi
----
-apiVersion: v1
 kind: Service
 metadata:
   name: helloworld
@@ -55,12 +46,6 @@ spec:
         image: gsoci.azurecr.io/giantswarm/helloworld:latest
         ports:
         - containerPort: 8080
-        env:
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: helloworld-secret
-              key: secret-key
         livenessProbe:
           httpGet:
             path: /healthz
