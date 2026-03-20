@@ -9,6 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [0.5.0] - 2026-03-20
 
+### Removed
+
 - Remove secret key environment variable requirement
 
 ## [0.4.0] - 2025-07-18
