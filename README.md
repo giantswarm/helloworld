@@ -17,7 +17,7 @@ A minimal Go web application to verify your Giant Swarm Kubernetes cluster is wo
 
 ### Deploy on Giant Swarm
 
-The easiest way to deploy this application is through the Giant Swarm platform. You can install it as an app directly from the Giant Swarm catalog using the web UI or kubectl gs. See the [official guide on installing an application](https://docs.giantswarm.io/getting-started/install-an-application/) for step-by-step instructions.
+You can install this app directly onto your Giant Swarm cluster using the web UI or kubectl gs, with the pre-packaged [giantswarm/hello-world-app](https://github.com/giantswarm/hello-world-app). See the [official guide on installing an application](https://docs.giantswarm.io/getting-started/install-an-application/) for step-by-step instructions.
 
 ### Deploy to Kubernetes
 
