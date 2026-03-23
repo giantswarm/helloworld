@@ -1,7 +1,16 @@
-[![](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white&style=for-the-badge)](https://pkg.go.dev/github.com/giantswarm/helloworld)
-[![Go Report Card](https://goreportcard.com/badge/github.com/giantswarm/helloworld?style=for-the-badge)](https://goreportcard.com/report/github.com/giantswarm/helloworld)
+<div align="center">
+
+[![GitHub release](https://img.shields.io/github/release/giantswarm/helloworld.svg?color)](https://github.com/giantswarm/helloworld/releases)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/helloworld/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/helloworld/tree/main)
+![Docker Pulls](https://img.shields.io/docker/pulls/giantswarm/helloworld)
+[![](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white)](https://pkg.go.dev/github.com/giantswarm/helloworld)
+[![Go Report Card](https://goreportcard.com/badge/github.com/giantswarm/helloworld)](https://goreportcard.com/report/github.com/giantswarm/helloworld)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/giantswarm/helloworld/blob/main/LICENSE)
 
 # Hello World
+
+</div>
+
 
 A minimal Go web application to verify your Giant Swarm Kubernetes cluster is working correctly. It serves a static "Hello World" page and is designed to be a quick smoke test after cluster setup.
 
