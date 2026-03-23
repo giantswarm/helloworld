@@ -14,7 +14,7 @@ A minimal Go web application to verify your Giant Swarm Kubernetes cluster is wo
 - Handles `SIGTERM` for graceful shutdown
 
 <p align="center">
-    <img src="assets/hello-world.png" alt="hello-world screenshot" height="800px">
+    <img src="assets/hello-world.png" alt="hello-world screenshot" height="500px">
 </p>
 
 ## Quick start
