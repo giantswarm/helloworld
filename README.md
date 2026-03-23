@@ -13,6 +13,10 @@ A minimal Go web application to verify your Giant Swarm Kubernetes cluster is wo
 - Logs HTTP requests using Go's structured logging (`log/slog`)
 - Handles `SIGTERM` for graceful shutdown
 
+<p align="center">
+    <img src="assets/hello-world.png" alt="hello-world screenshot" height="800px">
+</p>
+
 ## Quick start
 
 ### Deploy on Giant Swarm
