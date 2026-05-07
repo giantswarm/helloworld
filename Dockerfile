@@ -1,4 +1,4 @@
-FROM gsoci.azurecr.io/giantswarm/alpine:3.23.3 AS binary-selector
+FROM gsoci.azurecr.io/giantswarm/alpine:3.23.4 AS binary-selector
 ARG TARGETPLATFORM
 COPY helloworld-* /binaries/
 RUN case "$TARGETPLATFORM" in \
@@ -7,7 +7,7 @@ RUN case "$TARGETPLATFORM" in \
       *) echo "Unsupported platform: $TARGETPLATFORM" && exit 1 ;; \
     esac
 
-FROM gsoci.azurecr.io/giantswarm/alpine:3.23.3
+FROM gsoci.azurecr.io/giantswarm/alpine:3.23.4
 
 # Add our static content
 ADD content /content
