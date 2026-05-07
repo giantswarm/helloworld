@@ -9,6 +9,9 @@ RUN case "$TARGETPLATFORM" in \
 
 FROM gsoci.azurecr.io/giantswarm/alpine:3.23.3
 
+# Add CA certificates so we can contact external TLS services
+RUN apk add --no-cache ca-certificates
+
 # Add our static content
 ADD content /content
 
