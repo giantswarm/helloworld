@@ -1,12 +1,11 @@
-FROM gsoci.azurecr.io/giantswarm/golang:1.26.1-alpine3.23 AS builder
-
-WORKDIR /project
-
-COPY main.go /project/
-COPY go.mod /project/
-COPY go.sum /project/
-
-RUN go build .
+FROM gsoci.azurecr.io/giantswarm/alpine:3.23.3 AS binary-selector
+ARG TARGETPLATFORM
+COPY helloworld-* /binaries/
+RUN case "$TARGETPLATFORM" in \
+      "linux/amd64") cp /binaries/helloworld-linux-amd64 /bin/helloworld ;; \
+      "linux/arm64") cp /binaries/helloworld-linux-arm64 /bin/helloworld ;; \
+      *) echo "Unsupported platform: $TARGETPLATFORM" && exit 1 ;; \
+    esac
 
 FROM gsoci.azurecr.io/giantswarm/alpine:3.23.3
 
@@ -17,7 +16,7 @@ RUN apk add --no-cache ca-certificates
 ADD content /content
 
 # Add our binary
-COPY --from=builder /project/helloworld /helloworld
+COPY --from=binary-selector /bin/helloworld /helloworld
 
 EXPOSE 8080
 
