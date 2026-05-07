@@ -1,12 +1,14 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@6.15.0
+  architect: giantswarm/architect@8.0.0
 
 workflows:
   all:
     jobs:
     - architect/go-build:
-        name: go-build
+        matrix:
+          parameters:
+            architecture: ["linux/amd64", "linux/arm64"]
         binary: helloworld
         filters:
             # Trigger job also on git tag.
@@ -16,8 +18,10 @@ workflows:
     - architect/push-to-registries:
         context: architect
         name: push-to-registries
+        image: giantswarm/helloworld
+        multiarch: true
         requires:
-        - go-build
+        - architect/go-build
         filters:
           tags:
             only: /^v.*/
