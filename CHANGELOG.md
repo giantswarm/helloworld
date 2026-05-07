@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [0.6.0] - 2026-05-07
 
+### Added
+
+- Container image supports ARM
+
 ## [0.5.0] - 2026-03-20
 
 ### Removed
