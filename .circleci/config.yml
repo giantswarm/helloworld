@@ -6,6 +6,7 @@ workflows:
   all:
     jobs:
     - architect/go-build:
+        context: architect
         matrix:
           parameters:
             architecture: ["linux/amd64", "linux/arm64"]
