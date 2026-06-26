@@ -64,6 +64,7 @@ The server starts on http://localhost:8080.
 | Path       | Description                          |
 |------------|--------------------------------------|
 | `/`        | Static HTML welcome page             |
+| `/echo`    | Echoes the request (method, path, query, headers, body) as JSON, with `received_at`/`responded_at` timestamps. Add `?delay=2s` (any Go duration) to delay the response. |
 | `/healthz` | Health check (returns `200 OK`)      |
 | `/metrics` | Prometheus metrics                   |
 
