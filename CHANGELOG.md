@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `/echo` endpoint that echoes request details as JSON, with an optional `?delay` query param to delay the response.
+
 ## [0.6.0] - 2026-05-07
 
 ### Added
