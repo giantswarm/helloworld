@@ -59,6 +59,10 @@ func main() {
 	http.HandleFunc("/healthz", healthzHandler)
 	http.Handle("/echo", loggingHandler(http.HandlerFunc(echoHandler)))
 
+	// Opt-in, off-by-default staged memory leak (see leak.go). No-op unless
+	// explicitly enabled via the environment.
+	setupMemoryLeak()
+
 	go func() {
 		slog.Info("Starting up at :8080")
 		if err := http.ListenAndServe(":8080", nil); err != nil { //nolint:gosec

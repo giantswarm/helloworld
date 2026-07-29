@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Add `/echo` endpoint that echoes request details as JSON, with an optional `?delay` query param to delay the response.
+- Add an opt-in, off-by-default memory leak injector for staging a reproducible OOMKill-on-a-loop failure (e.g. for demos and testing). Configured via `MEMORY_LEAK_ENABLED`, `MEMORY_LEAK_RATE_BYTES_PER_SEC` and `MEMORY_LEAK_GRACE_PERIOD`, with `/leak/stop`, `/leak/start` and `/leak/status` runtime controls and a `helloworld_memory_leaked_bytes` metric. When disabled (the default) behaviour is unchanged.
 
 ## [0.6.0] - 2026-05-07
 
