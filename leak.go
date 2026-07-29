@@ -69,7 +69,18 @@ type memoryLeaker struct {
 // logged. It must be called before the HTTP server starts, as it registers
 // handlers on http.DefaultServeMux.
 func setupMemoryLeak() {
-	enabled, _ := strconv.ParseBool(os.Getenv(memoryLeakEnabledEnv))
+	rawEnabled := os.Getenv(memoryLeakEnabledEnv)
+	enabled, err := strconv.ParseBool(rawEnabled)
+	if err != nil {
+		// Distinguish "unset" (silently stay disabled, the default) from a
+		// non-empty but unparseable value, which is almost always a mistake and
+		// the top reason a staged failure "isn't firing".
+		if rawEnabled != "" {
+			slog.Warn("Invalid memory leak enabled flag, leak disabled",
+				"env", memoryLeakEnabledEnv, "value", rawEnabled)
+		}
+		return
+	}
 	if !enabled {
 		return
 	}
@@ -130,21 +141,26 @@ func (l *memoryLeaker) run() {
 	}
 	l.active.Store(true)
 
-	// Bytes to allocate per tick, derived from the configured rate so that the
-	// long-run growth matches rateBytesPerSec regardless of leakInterval.
-	perTick := int(float64(l.rateBytesPerSec) * leakInterval.Seconds())
-	if perTick < leakPageSize {
-		perTick = leakPageSize
-	}
+	// Bytes owed per tick, derived from the configured rate. We accumulate a
+	// fractional remainder across ticks and only allocate whole bytes, so the
+	// long-run rate matches rateBytesPerSec exactly even for rates that work
+	// out to less than one byte (or less than a page) per tick.
+	perTick := float64(l.rateBytesPerSec) * leakInterval.Seconds()
+	var owed float64
 
 	ticker := time.NewTicker(leakInterval)
 	defer ticker.Stop()
 	for range ticker.C {
 		if !l.active.Load() {
 			// Paused via /leak/stop: memory plateaus and the pod stays alive.
+			// Time spent paused does not accrue, so resuming is not bursty.
 			continue
 		}
-		l.allocate(perTick)
+		owed += perTick
+		if n := int(owed); n > 0 {
+			l.allocate(n)
+			owed -= float64(n)
+		}
 	}
 }
 
